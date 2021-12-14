@@ -1,0 +1,202 @@
+{% include "header.html" %}
+
+<link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+
+{% block body %}
+<div class="container">
+
+    <div class="row">
+
+        <div class="col md-12">
+
+
+
+            <h2>Restaurant</h2>
+
+
+
+
+    {%with messages = get_flashed_messages()%}
+
+    {%if messages%}
+
+    {% for message in messages %}
+
+    <div class="alert alert-success alert-dismissable" role="alert">
+
+     <button type="button" class="close" data-dismiss="alert" aria-label ="close">
+
+         <span aria-hidden="true">&times;</span>
+
+     </button>
+        {{message}}
+
+
+    </div>
+
+
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+
+
+
+
+            <table class="table table-striped">
+
+
+                <tr>
+            <th>Priority</th>
+            <th>Date</th>
+              <th>Name</th>
+              <th>status</th>
+              <th>customer</th>
+        
+
+             
+
+
+          </tr>
+
+
+
+
+
+                {% for row in students %}
+                <tr>
+                    <td>{{row.0}}</td>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td>{{row.4}}</td>
+                    <td>
+
+
+               <a href="/update5/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+
+                    </td>
+
+                </tr>
+
+                <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+
+
+   <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+
+         <div class="modal-header">
+
+
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+
+            <h4 class="modal-title">Update Information</h4>
+
+
+         </div>
+
+
+         <div class="modal-body">
+
+
+            <form action="{{ url_for('update5') }}" method="POST">
+                <input type="hidden" class="form-control" name="id" value="{{row.0}}"/>
+
+               <div class="form-group">
+
+                
+
+
+                <label>Name:</label>
+               
+                <input type="text" class="form-control" name="name" required="1" value="{{row.1}}">
+
+
+             </div>
+
+
+        
+             <div class="form-group">
+
+
+              <label>Status:</label>
+              
+             <select name="from" id="from" class="form-control" required='1' value="{{row.3}}">
+                <option value="done">Done</option>
+                <option value="not done">Not done</option>
+</select>
+
+
+           </div>
+           
+   
+
+             <div class="form-group">
+
+
+                <button class="btn btn-primary" type="submit">Update status</button>
+
+
+             </div>
+
+
+
+            </form>
+
+
+         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+
+</div>
+
+
+                {% endfor  %}
+
+
+                </tbody>
+
+                
+            </table>
+            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+
+        </div>
+
+
+      
+
+
+
+  {% include "footer.html" %}
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+
+
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+<script type="text/javascript" src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+
+           
